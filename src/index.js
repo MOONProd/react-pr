@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import NumberCount from './NumberCount';
-// import UserInput from './UserInput';
+import ListRendering from './jsx_file/ListRendering';
+// import NumberCount from './jsx_file/NumberCount';
+// import UserInput from './jsx_file/UserInput';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <UserInput/> */}
-    <NumberCount/>
+    {/* <NumberCount/> */}
+    <ListRendering/>
   </React.StrictMode>
 );
 
