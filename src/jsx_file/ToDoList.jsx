@@ -6,7 +6,7 @@ function ToDoList(props) {
 
     function handleInputOnClick() {
         setLists([...lists,inputText]);
-        setInputText(inputText = '');
+        setInputText('');
     }
     const activeEnter = (e) => {
         if(e.key === "Enter") {
