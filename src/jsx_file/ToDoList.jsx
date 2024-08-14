@@ -12,7 +12,7 @@ function ToDoList(props) {
         if(e.key === "Enter") {
             handleInputOnClick();
         }
-      }
+    }
     return (
         <div>
             <div>
