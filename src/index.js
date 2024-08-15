@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import IfRender from './jsx_file/IfRender';
+import ComponentReuse from './jsx_file/ComponentReuse';
+// import IfRender from './jsx_file/IfRender';
 // import ToDoList from './jsx_file/ToDoList';
 // import ListRendering from './jsx_file/ListRendering';
 // import NumberCount from './jsx_file/NumberCount';
@@ -15,7 +16,9 @@ root.render(
     {/* <NumberCount/> */}
     {/* <ListRendering/> */}
     {/* <ToDoList/> */}
-    <IfRender/>
+    {/* <IfRender/> */}
+    <ComponentReuse/>
+    <ComponentReuse/>
   </React.StrictMode>
 );
 
