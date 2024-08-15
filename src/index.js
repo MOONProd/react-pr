@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import ComponentReuse from './jsx_file/ComponentReuse';
+import Form from './jsx_file/Form';
+// import ComponentReuse from './jsx_file/ComponentReuse';
 // import IfRender from './jsx_file/IfRender';
 // import ToDoList from './jsx_file/ToDoList';
 // import ListRendering from './jsx_file/ListRendering';
@@ -17,8 +18,9 @@ root.render(
     {/* <ListRendering/> */}
     {/* <ToDoList/> */}
     {/* <IfRender/> */}
-    <ComponentReuse/>
-    <ComponentReuse/>
+    {/* <ComponentReuse/> */}
+    {/* <ComponentReuse/> */}
+    <Form/>
   </React.StrictMode>
 );
 
