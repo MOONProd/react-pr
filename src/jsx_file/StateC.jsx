@@ -2,16 +2,10 @@ import React from 'react';
 
 function StateC(props) {
 
-    const handleUpClick=(event)=>{
-        props.onUp(event.target.value);
-    }
-    const handleDownClick=(event)=>{
-        props.onDown(event.target.value);
-    }
     return (
         <div>
-            <button onClick={handleUpClick}>Up</button>
-            <button onClick={handleDownClick}>Down</button>
+            <button onClick={props.onUp}>Up</button>
+            <button onClick={props.onDown}>Down</button>
         </div>
     );
 }

@@ -6,11 +6,11 @@ function StateP(props) {
     let [number, setNumber] = useState(0);
 
     function handleUpNum() {
-        setNumber(number+1);
+        setNumber(prevnum => prevnum+1);
     }
 
     function handleDownNum() {
-        setNumber(number-1);
+        setNumber(prevnum => prevnum-1);
     }
 
     return (
@@ -18,7 +18,7 @@ function StateP(props) {
             <h1>Step2. State Manage</h1>
             <hr/>
             <h5>{number}</h5>
-            <StateC onUp={handleUpNum} onDown={handleDownNum} value={number}/>
+            <StateC onUp={handleUpNum} onDown={handleDownNum}/>
         </div>
     );
 }
