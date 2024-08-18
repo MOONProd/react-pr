@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import ArrayP from './jsx_file/ArrayP';
+import InputP from './jsx_file/InputP';
+// import ArrayP from './jsx_file/ArrayP';
 // import StateP from './jsx_file/StateP';
 // import TextDeliverP from './jsx_file/TextDeliverP';
 // import Calculator from './jsx_file/Calculator';
@@ -30,7 +31,8 @@ root.render(
     {/* <Calculator/> */}
     {/* <TextDeliverP/> */}
     {/* <StateP/> */}
-    <ArrayP/>
+    {/* <ArrayP/> */}
+    <InputP/>
   </React.StrictMode>
 );
 
