@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Calculator from './jsx_file/Calculator';
+import TextDeliverP from './jsx_file/TextDeliverP';
+// import Calculator from './jsx_file/Calculator';
 // import Form from './jsx_file/Form';
 // import APIuser from './jsx_file/APIuser';
 // import ComponentReuse from './jsx_file/ComponentReuse';
@@ -24,7 +25,8 @@ root.render(
     {/* <ComponentReuse/> */}
     {/* <Form/> */}
     {/* <APIuser/> */}
-    <Calculator/>
+    {/* <Calculator/> */}
+    <TextDeliverP/>
   </React.StrictMode>
 );
 
