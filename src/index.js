@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import TextDeliverP from './jsx_file/TextDeliverP';
+import StateP from './jsx_file/StateP';
+// import TextDeliverP from './jsx_file/TextDeliverP';
 // import Calculator from './jsx_file/Calculator';
 // import Form from './jsx_file/Form';
 // import APIuser from './jsx_file/APIuser';
@@ -26,7 +27,8 @@ root.render(
     {/* <Form/> */}
     {/* <APIuser/> */}
     {/* <Calculator/> */}
-    <TextDeliverP/>
+    {/* <TextDeliverP/> */}
+    <StateP/>
   </React.StrictMode>
 );
 
