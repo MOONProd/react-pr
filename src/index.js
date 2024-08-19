@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import InputP from './jsx_file/InputP';
+import EventP from './jsx_file/EventP';
+// import InputP from './jsx_file/InputP';
 // import ArrayP from './jsx_file/ArrayP';
 // import StateP from './jsx_file/StateP';
 // import TextDeliverP from './jsx_file/TextDeliverP';
@@ -32,7 +33,8 @@ root.render(
     {/* <TextDeliverP/> */}
     {/* <StateP/> */}
     {/* <ArrayP/> */}
-    <InputP/>
+    {/* <InputP/> */}
+    <EventP/>
   </React.StrictMode>
 );
 
