@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import EventP from './jsx_file/EventP';
+import ClassCalc from './jsx_file/ClassCalc';
+// import EventP from './jsx_file/EventP';
 // import InputP from './jsx_file/InputP';
 // import ArrayP from './jsx_file/ArrayP';
 // import StateP from './jsx_file/StateP';
@@ -34,7 +35,8 @@ root.render(
     {/* <StateP/> */}
     {/* <ArrayP/> */}
     {/* <InputP/> */}
-    <EventP/>
+    {/* <EventP/> */}
+    <ClassCalc/>
   </React.StrictMode>
 );
 
