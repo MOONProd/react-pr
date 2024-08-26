@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import ClassGBB from './jsx_file/ClassGBB';
+import RouterApp from './Router/RouterApp';
+// import ClassGBB from './jsx_file/ClassGBB';
 // import ClassCalc from './jsx_file/ClassCalc';
 // import EventP from './jsx_file/EventP';
 // import InputP from './jsx_file/InputP';
@@ -38,7 +39,8 @@ root.render(
     {/* <InputP/> */}
     {/* <EventP/> */}
     {/* <ClassCalc/> */}
-    <ClassGBB/>
+    {/* <ClassGBB/> */}
+    <RouterApp/>
   </React.StrictMode>
 );
 

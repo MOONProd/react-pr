@@ -79,7 +79,6 @@ function CalcResult() {
 
     return(
         <div>
-           
             {val.toggle && `${val.firstNumber} ${val.operator} ${val.secondNumber} = ${val.result}`}
         </div>
     );
