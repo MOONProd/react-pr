@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import RouterApp from './Router/RouterApp';
+import BookApp from './CLASS/BookApp';
+// import RouterApp from './Router/RouterApp';
 // import ClassGBB from './jsx_file/ClassGBB';
 // import ClassCalc from './jsx_file/ClassCalc';
 // import EventP from './jsx_file/EventP';
@@ -40,7 +41,8 @@ root.render(
     {/* <EventP/> */}
     {/* <ClassCalc/> */}
     {/* <ClassGBB/> */}
-    <RouterApp/>
+    {/* <RouterApp/> */}
+    <BookApp/>
   </React.StrictMode>
 );
 
