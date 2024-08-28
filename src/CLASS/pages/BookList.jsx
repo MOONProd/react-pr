@@ -8,6 +8,7 @@ function BookList(props) {
     useEffect(()=>{
         axios.get('http://localhost:8080/book/list')
             .then((response)=>{
+                console.log(response.data);
                 setList(response.data);
             });
 
