@@ -12,7 +12,7 @@ function BookList(props) {
                 setBooks(response.data);
             });
 
-    },[books]);
+    },[]);
 
 
     return (
