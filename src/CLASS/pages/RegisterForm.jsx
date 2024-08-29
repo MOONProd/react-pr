@@ -1,19 +1,31 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import * as st from '../style/FrameSt.jsx';
 import { TextField,Box,Button,Typography,Modal } from '@mui/material';
 
 function RegisterForm(props) {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [book, setBook] = useState({
+        isbn:'',
+        title:'',
+        author:'',
+        price:'',
+        desc:'',
+    });
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     
-    const handleChange = ()=>{
-
+    const handleChange = (event)=>{
+        setBook({...book,[event.target.name]:event.target.value});
     }
 
     const handleClick = ()=>{
 
+        axios.post('http://localhost:8080/book/form',book);
+        navigate('/list');
     }
 
     return (
@@ -21,28 +33,37 @@ function RegisterForm(props) {
         <st.Frame>
             <st.Title>도서정보입력</st.Title>
            
+                <TextField label='도서번호'
+                           variant='standard'
+                           value={book.isbn}
+                           name='isbn'
+                           onChange={handleChange}/>
+
                 <TextField label='책이름'
                            variant='standard'
-                        //    value={book.title}
+                           value={book.title}
                            name='title'
                            onChange={handleChange}/>
            
                 <TextField label='저자'
                            variant='standard'
-                        //    value={book.author}
+                           value={book.author}
                            name='author'
                            onChange={handleChange}/>
            
                 <TextField label='가격'
                            variant='standard'
-                        //    value={book.price}
+                           value={book.price}
                            name='price'
                            onChange={handleChange}/>
 
                 <TextField label='설명'
+                           id='standard-multiline-static'
                            variant='standard'
-                        //    value={book.des}
-                           name='des'
+                           multiline
+                           rows={4}
+                           value={book.desc}
+                           name='desc'
                            onChange={handleChange}/>
            
             <br/>
