@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { RecoilRoot } from 'recoil';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import BookApp from './CLASS/BookApp';
@@ -42,7 +43,9 @@ root.render(
     {/* <ClassCalc/> */}
     {/* <ClassGBB/> */}
     {/* <RouterApp/> */}
+    <RecoilRoot>
     <BookApp/>
+    </RecoilRoot>
   </React.StrictMode>
 );
 

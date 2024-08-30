@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { toggle } from '../util/atom.js';
 import axios from 'axios';
 import * as st from '../style/FrameSt.jsx';
 import { TextField,Box,Button,Typography,Modal } from '@mui/material';
+// import Login from '../ui/Login.jsx';
+
 
 function RegisterForm(props) {
     const navigate = useNavigate();
@@ -14,12 +18,21 @@ function RegisterForm(props) {
         price:'',
         desc:'',
     });
+    const [member, setMember] = useState({
+        id:'',
+        pwd:'',
+    })
+    // const [welcome, setWelcome] = useState(false);
+    const [log, setLog] = useState('로그인');
+    const [come, setCome] = useRecoilState(toggle);
+    // const [username, setUsername] = useState('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     
     const handleChange = (event)=>{
         setBook({...book,[event.target.name]:event.target.value});
+        setMember({...member,[event.target.name]:event.target.value});
     }
 
     const handleClick = ()=>{
@@ -28,11 +41,30 @@ function RegisterForm(props) {
         navigate('/list');
     }
 
+    const loginClick = ()=>{
+        axios.post('http://localhost:8080/member/findMember',member)
+             .then((response)=>{
+                const user = response.data;
+
+                if(user)
+                {
+                    // setUsername(user);
+                    setCome({...come, welcome:true, username:user});
+                    setLog('로그아웃');
+                    setOpen(false);
+                    alert(`${user}님 환영합니다!`);
+                }
+                else
+                {
+                    alert('아이디나 비밀번호를 확인해주세요!');
+                }
+             })
+    }
+
     return (
-        
+
         <st.Frame>
             <st.Title>도서정보입력</st.Title>
-           
                 <TextField label='도서번호'
                            variant='standard'
                            value={book.isbn}
@@ -70,7 +102,7 @@ function RegisterForm(props) {
             <st.Button onClick={handleClick}>입력</st.Button>
             <br/>
             <st.LinkButton to='/list'>도서목록보기</st.LinkButton>
-            <Button onClick={handleOpen}>로그인</Button>
+            <Button onClick={handleOpen}>{log}</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -82,18 +114,26 @@ function RegisterForm(props) {
                     로그인
                 </Typography>
                 <TextField label='ID'
-                           variant='standard'/>
+                           variant='standard'
+                           name='id'
+                           value={member.id}
+                           onChange={handleChange}/>
                 
                 <TextField label='PW'
                            variant='standard'
-                           type='password'/>
+                           type='password'
+                           name='pwd'
+                           value={member.pwd}
+                           onChange={handleChange}/>
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                    <st.Button>로그인</st.Button>
+                    <st.Button onClick={loginClick} disabled={come.welcome}>로그인</st.Button>
+                    {/* <Login welcome={welcome} username={username}/> */}
                 </Box>
                 </Box>
 
             </Modal>
         </st.Frame>
+
     );
 }
 

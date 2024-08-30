@@ -1,5 +1,7 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
+import { toggle } from "./util/atom";
 // import { useEffect,useState } from 'react';
 // import axios from 'axios';
 import * as st from '../CLASS/style/FrameSt';
@@ -8,9 +10,11 @@ import * as st from '../CLASS/style/FrameSt';
 import RegisterForm from "./pages/RegisterForm";
 import BookList from "./pages/BookList";
 import EditForm from "./pages/EditForm";
+import Login from "./ui/Login";
 
 
 function BookApp() {
+  const come = useRecoilValue(toggle);
 
 //   const [book, setBook] = useState({
 //     title:'',
@@ -31,6 +35,8 @@ function BookApp() {
   return (
     <BrowserRouter>
       <st.MainTitleText>도서 조회 시스템</st.MainTitleText>
+      {console.log(come.welcome)}
+      {come.welcome && <Login/>}
       <st.MainFrame>
         <Routes>
           <Route index element={<RegisterForm/>}></Route>
