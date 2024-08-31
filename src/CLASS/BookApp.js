@@ -17,6 +17,7 @@ function BookApp() {
   const come = useRecoilValue(toggle);
 
 //   const [book, setBook] = useState({
+//     isbn:'',
 //     title:'',
 //     author:'',
 //     price:'',
@@ -32,16 +33,17 @@ function BookApp() {
 
 // },[]);
 
+
   return (
     <BrowserRouter>
       <st.MainTitleText>도서 조회 시스템</st.MainTitleText>
-      {console.log(come.welcome)}
+      {/* {console.log(come.welcome)} */}
       {come.welcome && <Login/>}
       <st.MainFrame>
         <Routes>
           <Route index element={<RegisterForm/>}></Route>
           <Route path='/list' element={<BookList/>}></Route>
-          <Route path='/edit:id' element={<EditForm/>}></Route>
+          <Route path='/edit/:isbn' element={<EditForm/>}></Route>
         </Routes>
       </st.MainFrame>
     </BrowserRouter>

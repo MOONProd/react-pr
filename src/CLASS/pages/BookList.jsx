@@ -33,7 +33,9 @@ function BookList(props) {
                             {/* <st.Td>
                                 <st.StyledLink to={`/edit/${book.no}`}>{book.no}</st.StyledLink>
                             </st.Td> */}
-                            <st.Td>{book.isbn}</st.Td>
+                            <st.Td>
+                                <st.LinkButton to={`/edit/${book.isbn}`}> {book.isbn} </st.LinkButton>
+                            </st.Td>
                             <st.Td>{book.title}</st.Td>
                             <st.Td>{book.author}</st.Td>
                             <st.Td>{book.price}</st.Td>
