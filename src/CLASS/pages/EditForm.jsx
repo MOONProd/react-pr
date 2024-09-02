@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react';
 import { TextField } from '@mui/material';
 import axios from 'axios';
 import * as st from '../style/FrameSt';
+import { useRecoilValue } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toggle } from '../util/atom';
 
 function EditForm(props) {
     // const { id } = props;
     const navigate = useNavigate();
 
     const { isbn } = useParams();
+    const allow = useRecoilValue(toggle);
 
     const [book, setBook] = useState({
         isbn:'',
@@ -33,19 +36,35 @@ function EditForm(props) {
     }
 
     const handleUpdate = ()=>{
-        axios.put(`http://localhost:8080/book/upform`,book, { params: { isbn: isbn } })
-             .then(()=>{
-                console.log('Book updated successfully');
-                navigate('/list');
-             });
+
+        if(allow.welcome){
+            axios.put(`http://localhost:8080/book/upform`,book, { params: { isbn: isbn } })
+                 .then(()=>{
+                    console.log('Book updated successfully');
+                    navigate('/list');
+                 });
+
+        }
+        else
+        {
+            alert('로그인이 필요합니다!');
+        }
     }
 
     const handleDelete = ()=>{
-        axios.delete(`http://localhost:8080/book/delete`, { params: { isbn: isbn } })
-        .then(()=>{
-           console.log('Deleted successfully');
-           navigate('/list');
-        });
+
+        if(allow.welcome)
+        {
+            axios.delete(`http://localhost:8080/book/delete`, { params: { isbn: isbn } })
+            .then(()=>{
+               console.log('Deleted successfully');
+               navigate('/list');
+            });
+        }
+        else
+        {
+            alert('로그인이 필요합니다!');
+        }
     }
     return (
         <st.Frame>
