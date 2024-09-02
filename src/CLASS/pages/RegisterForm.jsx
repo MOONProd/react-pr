@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { toggle } from '../util/atom.js';
@@ -26,11 +26,20 @@ function RegisterForm(props) {
         id:'',
         pwd:'',
     })
-    // const [welcome, setWelcome] = useState(false);
-    const [log, setLog] = useState('로그인');
     const [come, setCome] = useRecoilState(toggle);
-    // const [username, setUsername] = useState('');
-
+    
+    useEffect(()=>{
+        const storedUser = sessionStorage.getItem('username');
+        if(storedUser)
+            {
+                setCome({...come, welcome:true, username:storedUser});
+                setLog('로그아웃');
+            }
+        },[]);
+        // const [welcome, setWelcome] = useState(false);
+        // const [username, setUsername] = useState('');
+        
+    const [log, setLog] = useState(sessionStorage.getItem('username') ? '로그아웃' : '로그인');
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     
@@ -71,6 +80,7 @@ function RegisterForm(props) {
                     setCome({...come, welcome:true, username:user});
                     setLog('로그아웃');
                     setOpen(false);
+                    sessionStorage.setItem('username', user);
                     alert(`${user}님 환영합니다!`);
                 }
                 else
@@ -79,6 +89,13 @@ function RegisterForm(props) {
                 }
              })
     }
+
+    const logoutClick = () => {
+        sessionStorage.removeItem('username');
+        setCome({ ...come, welcome: false, username: '' });
+        setLog('로그인');
+        alert('로그아웃 되었습니다.');
+    };
 
     const handleUpfileChange = (e)=>{
         setUpfile(e.target.files[0]); //List로 저장되니까.. 0번째의 파일을 저장해야함용
@@ -141,7 +158,7 @@ function RegisterForm(props) {
             <st.Button onClick={handleClick}>입력</st.Button>
             <br/>
             <st.LinkButton to='/list'>도서목록보기</st.LinkButton>
-            <Button onClick={handleOpen}>{log}</Button>
+            <Button onClick={log === '로그인' ? handleOpen : logoutClick}>{log}</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -165,7 +182,7 @@ function RegisterForm(props) {
                            value={member.pwd}
                            onChange={handleChange}/>
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                    <st.Button onClick={loginClick} disabled={come.welcome}>로그인</st.Button>
+                    <st.Button onClick={loginClick}>로그인</st.Button>
                     {/* <Login welcome={welcome} username={username}/> */}
                 </Box>
                 </Box>

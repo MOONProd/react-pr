@@ -59,7 +59,7 @@ function BookList(props) {
                     ))}
                 </tbody>
             </st.Table>
-            <st.LinkButton to='/'>사람정보입력</st.LinkButton>
+            <st.LinkButton to='/'>도서정보입력</st.LinkButton>
         </div>
     );
 }
