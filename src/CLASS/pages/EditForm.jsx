@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { TextField } from '@mui/material';
 import axios from 'axios';
 import * as st from '../style/FrameSt';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function EditForm(props) {
     // const { id } = props;
+    const navigate = useNavigate();
 
     const { isbn } = useParams();
 
@@ -35,13 +36,15 @@ function EditForm(props) {
         axios.put(`http://localhost:8080/book/upform`,book, { params: { isbn: isbn } })
              .then(()=>{
                 console.log('Book updated successfully');
+                navigate('/list');
              });
     }
 
     const handleDelete = ()=>{
-        axios.delete(`http://localhost:8080/book/delete`,book, { params: { isbn: isbn } })
+        axios.delete(`http://localhost:8080/book/delete`, { params: { isbn: isbn } })
         .then(()=>{
            console.log('Deleted successfully');
+           navigate('/list');
         });
     }
     return (
