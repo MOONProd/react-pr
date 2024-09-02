@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 export const MainTitleText = styled.p`
     font-size: 24px;
     font-weight: bold;
     text-align: center;
+`;
+
+export const InputField = styled(TextField)`
+    margin-top: 20px;
 `;
 
 export const Frame = styled.div`
@@ -108,3 +113,15 @@ export const style = {
     boxShadow: 24,
     p: 4,
   };
+
+  export const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });

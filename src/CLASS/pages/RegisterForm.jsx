@@ -4,19 +4,23 @@ import { useRecoilState } from 'recoil';
 import { toggle } from '../util/atom.js';
 import axios from 'axios';
 import * as st from '../style/FrameSt.jsx';
-import { TextField,Box,Button,Typography,Modal } from '@mui/material';
+import { Box,Button,Typography,Modal } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 // import Login from '../ui/Login.jsx';
 
 
 function RegisterForm(props) {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [upfile, setUpfile] = useState(null);
     const [book, setBook] = useState({
         isbn:'',
         title:'',
         author:'',
         price:'',
         desc:'',
+        upfile:null,
     });
     const [member, setMember] = useState({
         id:'',
@@ -37,8 +41,23 @@ function RegisterForm(props) {
 
     const handleClick = ()=>{
 
-        axios.post('http://localhost:8080/book/form',book);
-        navigate('/list');
+        const formData = new FormData(); //폼전송 (with 파일업로드)
+        formData.append("isbn",book.isbn);
+        formData.append("title",book.title);
+        formData.append("author",book.author);
+        formData.append("price",book.price);
+        formData.append("desc",book.desc);
+
+        if(upfile)
+        {
+            formData.append("upfile",upfile);
+        }
+
+        axios.post('http://localhost:8080/book/form',formData,
+                {headers:{'Content-Type':'multipart/form-data'}})
+             .then(()=>{
+                 navigate('/list');
+             });
     }
 
     const loginClick = ()=>{
@@ -61,35 +80,40 @@ function RegisterForm(props) {
              })
     }
 
+    const handleUpfileChange = (e)=>{
+        setUpfile(e.target.files[0]); //List로 저장되니까.. 0번째의 파일을 저장해야함용
+        console.log(e.target.files);
+    }
+
     return (
 
         <st.Frame>
             <st.Title>도서정보입력</st.Title>
-                <TextField label='도서번호'
+                <st.InputField label='도서번호'
                            variant='standard'
                            value={book.isbn}
                            name='isbn'
                            onChange={handleChange}/>
 
-                <TextField label='책이름'
+                <st.InputField label='책이름'
                            variant='standard'
                            value={book.title}
                            name='title'
                            onChange={handleChange}/>
            
-                <TextField label='저자'
+                <st.InputField label='저자'
                            variant='standard'
                            value={book.author}
                            name='author'
                            onChange={handleChange}/>
            
-                <TextField label='가격'
+                <st.InputField label='가격'
                            variant='standard'
                            value={book.price}
                            name='price'
                            onChange={handleChange}/>
 
-                <TextField label='설명'
+                <st.InputField label='설명'
                            id='standard-multiline-static'
                            variant='standard'
                            multiline
@@ -97,6 +121,21 @@ function RegisterForm(props) {
                            value={book.desc}
                            name='desc'
                            onChange={handleChange}/>
+
+<br/>
+                <Button
+                        component="label"
+                        variant="contained"
+                        tabIndex={-1}
+                        startIcon={<CloudUploadIcon />}
+                        >
+                        파일 업로드
+                        <st.VisuallyHiddenInput
+                            type="file"
+                            onChange={handleUpfileChange}
+                            multiple
+                        />
+                </Button>
            
             <br/>
             <st.Button onClick={handleClick}>입력</st.Button>
@@ -113,13 +152,13 @@ function RegisterForm(props) {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     로그인
                 </Typography>
-                <TextField label='ID'
+                <st.InputField label='ID'
                            variant='standard'
                            name='id'
                            value={member.id}
                            onChange={handleChange}/>
                 
-                <TextField label='PW'
+                <st.InputField label='PW'
                            variant='standard'
                            type='password'
                            name='pwd'

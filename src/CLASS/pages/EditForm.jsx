@@ -39,7 +39,10 @@ function EditForm(props) {
     }
 
     const handleDelete = ()=>{
-
+        axios.delete(`http://localhost:8080/book/delete`,book, { params: { isbn: isbn } })
+        .then(()=>{
+           console.log('Deleted successfully');
+        });
     }
     return (
         <st.Frame>
