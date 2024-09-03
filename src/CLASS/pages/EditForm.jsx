@@ -48,6 +48,7 @@ function EditForm(props) {
         else
         {
             alert('로그인이 필요합니다!');
+            navigate('/');
         }
     }
 
@@ -64,6 +65,7 @@ function EditForm(props) {
         else
         {
             alert('로그인이 필요합니다!');
+            navigate('/');
         }
     }
     return (
