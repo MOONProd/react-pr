@@ -103,6 +103,16 @@ function EditForm(props) {
                            value={book.desc}
                            name='desc'
                            onChange={handleChange}/>
+                <br/>
+                {book.img ? (
+                            <img 
+                                src={`${process.env.REACT_APP_API_URL}/upload/${book.img}`} 
+                                alt={`${book.title} 이미지`} 
+                                style={{ width: '300px', height: 'auto' }}
+                            />
+                        ) : (
+                            '이미지 없음'
+                        )}
 
             <br/>
             <st.Button onClick={handleUpdate}>수정</st.Button>
