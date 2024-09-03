@@ -27,6 +27,7 @@ function RegisterForm(props) {
         pwd:'',
     })
     const [come, setCome] = useRecoilState(toggle);
+    const [fileName, setFileName] = useState('');
     
     useEffect(()=>{
         const storedUser = sessionStorage.getItem('username');
@@ -98,8 +99,10 @@ function RegisterForm(props) {
     };
 
     const handleUpfileChange = (e)=>{
-        setUpfile(e.target.files[0]); //List로 저장되니까.. 0번째의 파일을 저장해야함용
-        console.log(e.target.files);
+        // console.log(e.target.files);
+        const file = e.target.files[0]; //List로 저장되니까.. 0번째의 파일을 저장해야함용
+        setUpfile(file);
+        setFileName(file ? file.name : '');
     }
 
     return (
@@ -153,6 +156,11 @@ function RegisterForm(props) {
                             multiple
                         />
                 </Button>
+                {fileName && (
+                <Box sx={{ marginTop: 2, color: '#555' }}>
+                    선택된 파일: {fileName}
+                </Box>
+            )}
            
             <br/>
             <st.Button onClick={handleClick}>입력</st.Button>

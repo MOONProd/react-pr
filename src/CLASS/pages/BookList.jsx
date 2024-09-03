@@ -47,7 +47,7 @@ function BookList(props) {
                             <st.Td>
                                 {book.img ? (
                                     <img 
-                                        src={`http://localhost:8080/upload/${book.img}`} 
+                                        src={`${process.env.REACT_APP_API_URL}/upload/${book.img}`} 
                                         alt={`${book.title} 이미지`} 
                                         style={{ width: '100px', height: 'auto' }}
                                     />
