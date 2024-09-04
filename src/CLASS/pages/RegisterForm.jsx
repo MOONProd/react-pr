@@ -63,7 +63,7 @@ function RegisterForm(props) {
             formData.append("upfile",upfile);
         }
 
-        axios.post('http://localhost:8080/book/form',formData,
+        axios.post('http://localhost:8080/book/regist',formData,
                 {headers:{'Content-Type':'multipart/form-data'}})
              .then(()=>{
                  navigate('/list');

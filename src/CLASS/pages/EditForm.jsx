@@ -22,7 +22,7 @@ function EditForm(props) {
     });
 
     useEffect(()=>{
-        axios.get(`http://localhost:8080/book/upform`,{ params: { isbn: isbn } })
+        axios.get(`http://localhost:8080/book/find`,{ params: { isbn: isbn } })
              .then((response)=>
             {
                 // const bookdata = response.data;
@@ -38,7 +38,7 @@ function EditForm(props) {
     const handleUpdate = ()=>{
 
         if(allow.welcome){
-            axios.put(`http://localhost:8080/book/upform`,book, { params: { isbn: isbn } })
+            axios.put(`http://localhost:8080/book/modify`,book, { params: { isbn: isbn } })
                  .then(()=>{
                     console.log('Book updated successfully');
                     navigate('/list');
@@ -56,7 +56,7 @@ function EditForm(props) {
 
         if(allow.welcome)
         {
-            axios.delete(`http://localhost:8080/book/delete`, { params: { isbn: isbn } })
+            axios.delete(`http://localhost:8080/book/remove`, { params: { isbn: isbn } })
             .then(()=>{
                console.log('Deleted successfully');
                navigate('/list');

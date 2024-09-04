@@ -4,9 +4,13 @@ import axios from 'axios';
 
 function BookList(props) {
     const [books, setBooks] = useState([]);
+    const [page, setPage] = useState(1);
+
+    const offset = (page-1)*10;
+    const pageSize = process.env.REACT_APP_PAGE_SIZE;
 
     useEffect(()=>{
-        axios.get('http://localhost:8080/book/list')
+        axios.get(`http://localhost:8080/book/findPage/${offset}/${pageSize}`)
         .then((response) => {
             console.log(response.data);
             setBooks(response.data);
@@ -17,6 +21,21 @@ function BookList(props) {
 
     },[]);
 
+    const handlePast = ()=>{
+
+        if(page===0)
+        {
+            setPage(1);
+        }
+
+        setPage(page-1);
+    }
+
+    const handleNext = ()=>{
+
+        setPage(page+1);
+
+    }
 
     return (
         <div>
@@ -59,8 +78,8 @@ function BookList(props) {
                     ))}
                 </tbody>
             </st.Table>
-            <st.Button>이전</st.Button>
-            <st.Button>다음</st.Button>
+            <st.Button onClick={handlePast}>이전</st.Button>
+            <st.Button onClick={handleNext}>다음</st.Button>
             <br/><br/>
             <st.LinkButton to='/'>도서정보입력</st.LinkButton>
         </div>
