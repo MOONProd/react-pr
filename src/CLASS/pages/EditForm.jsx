@@ -104,9 +104,9 @@ function EditForm(props) {
                            name='desc'
                            onChange={handleChange}/>
                 <br/>
-                {book.img ? (
+                {book.originImg ? (
                             <img 
-                                src={`${process.env.REACT_APP_API_URL}/upload/${book.img}`} 
+                                src={`${process.env.REACT_APP_API_URL}/upload/${book.saveImg}`} 
                                 alt={`${book.title} 이미지`} 
                                 style={{ width: '300px', height: 'auto' }}
                             />

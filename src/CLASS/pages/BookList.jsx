@@ -6,6 +6,25 @@ function BookList(props) {
     const [books, setBooks] = useState([]);
     const [page, setPage] = useState(1);
 
+    const handlePast = ()=>{
+
+        if(page===1)
+        {
+            setPage(1);
+        }
+        else{
+            
+            setPage(page-1);
+        }
+
+        console.log("page:",page);
+    }
+
+    const handleNext = ()=>{
+
+        setPage(page+1);
+
+    }
     const offset = (page-1)*10;
     const pageSize = process.env.REACT_APP_PAGE_SIZE;
 
@@ -19,23 +38,8 @@ function BookList(props) {
             console.error('Error fetching books:', error);
         });
 
-    },[]);
+    },[page]);
 
-    const handlePast = ()=>{
-
-        if(page===0)
-        {
-            setPage(1);
-        }
-
-        setPage(page-1);
-    }
-
-    const handleNext = ()=>{
-
-        setPage(page+1);
-
-    }
 
     return (
         <div>
@@ -64,9 +68,9 @@ function BookList(props) {
                             <st.Td>{book.price}</st.Td>
                             <st.Td>{book.desc}</st.Td>
                             <st.Td>
-                                {book.img ? (
+                                {book.saveImg ? (
                                     <img 
-                                        src={`${process.env.REACT_APP_API_URL}/upload/${book.img}`} 
+                                        src={`${process.env.REACT_APP_API_URL}/upload/${book.saveImg}`} 
                                         alt={`${book.title} 이미지`} 
                                         style={{ width: '100px', height: 'auto' }}
                                     />
