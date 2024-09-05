@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import BookApp from './CLASS/BookApp';
+import Concluding from './jsx_file/Concluding';
 // import RouterApp from './Router/RouterApp';
 // import ClassGBB from './jsx_file/ClassGBB';
 // import ClassCalc from './jsx_file/ClassCalc';
@@ -43,9 +44,13 @@ root.render(
     {/* <ClassCalc/> */}
     {/* <ClassGBB/> */}
     {/* <RouterApp/> */}
-    <RecoilRoot>
+
+
+    {/* <RecoilRoot>
     <BookApp/>
-    </RecoilRoot>
+    </RecoilRoot> */}
+
+    <Concluding/>
   </React.StrictMode>
 );
 
