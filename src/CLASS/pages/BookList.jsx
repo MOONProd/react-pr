@@ -5,41 +5,53 @@ import axios from 'axios';
 function BookList(props) {
     const [books, setBooks] = useState([]);
     const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
 
-    const handlePast = ()=>{
+    const pageSize = Number(process.env.REACT_APP_PAGE_SIZE || 10); // 한 페이지당 표시할 데이터 수
+    const offset = (page - 1) * pageSize;
 
-        if(page===1)
-        {
-            setPage(1);
-        }
-        else{
-            
-            setPage(page-1);
-        }
+    useEffect(() => {
+        // 총 데이터 수를 가져와서 총 페이지 수를 계산
+        axios.get('http://localhost:8080/book/totalCount')
+            .then((response) => {
+                const totalCount = response.data.totalCount; // 서버에서 전체 데이터 수를 받아옴
+                setTotalPages(Math.ceil(totalCount / pageSize)); // Math.ceil을 사용해 총 페이지 수 계산
+            })
+            .catch((error) => {
+                console.error('Error fetching total count:', error);
+            });
 
-        console.log("page:",page);
-    }
-
-    const handleNext = ()=>{
-
-        setPage(page+1);
-
-    }
-    const offset = (page-1)*10;
-    const pageSize = process.env.REACT_APP_PAGE_SIZE;
-
-    useEffect(()=>{
+        // 현재 페이지의 데이터를 가져옴
         axios.get(`http://localhost:8080/book/findPage/${offset}/${pageSize}`)
-        .then((response) => {
-            console.log(response.data);
-            setBooks(response.data);
-        })
-        .catch((error) => {
-            console.error('Error fetching books:', error);
-        });
+            .then((response) => {
+                setBooks(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching books:', error);
+            });
+    }, [page, pageSize]);
 
-    },[page]);
+    // 특정 페이지로 이동
+    const handlePageClick = (pageNum) => {
+        setPage(pageNum);
+    };
 
+    // 페이지 번호 버튼 생성
+    const renderPageNumbers = () => {
+        const pageNumbers = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pageNumbers.push(
+                <st.Button
+                    key={i}
+                    onClick={() => handlePageClick(i)}
+                    disabled={i === page} // 현재 페이지는 비활성화
+                >
+                    {i}
+                </st.Button>
+            );
+        }
+        return pageNumbers;
+    };
 
     return (
         <div>
@@ -57,9 +69,6 @@ function BookList(props) {
                 <tbody>
                 { books && books.map((book) => (
                         <tr key={book.isbn}>
-                            {/* <st.Td>
-                                <st.StyledLink to={`/edit/${book.no}`}>{book.no}</st.StyledLink>
-                            </st.Td> */}
                             <st.Td>
                                 <st.LinkButton to={`/edit/${book.isbn}`}> {book.isbn} </st.LinkButton>
                             </st.Td>
@@ -82,8 +91,9 @@ function BookList(props) {
                     ))}
                 </tbody>
             </st.Table>
-            <st.Button onClick={handlePast}>이전</st.Button>
-            <st.Button onClick={handleNext}>다음</st.Button>
+            <div>
+                {renderPageNumbers()}
+            </div>
             <br/><br/>
             <st.LinkButton to='/'>도서정보입력</st.LinkButton>
         </div>

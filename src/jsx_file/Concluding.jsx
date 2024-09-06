@@ -24,7 +24,8 @@ function Concluding(props) {
             const prevWord = chat[chat.length - 1];
             const lastChar = prevWord[prevWord.length - 1]; // 이전 단어의 마지막 글자 추출
 
-            if (lastChar === word[0]) { // 이전 단어의 마지막 글자와 새로운 단어의 첫 글자 비교
+            if (lastChar === word[0] && !(chat.includes(word)) ) { // 이전 단어의 마지막 글자와 새로운 단어의 첫 글자 비교
+                // console.log(chat.includes(word));
                 setChat([...chat, word]);
                 setWord('');
             }

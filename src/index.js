@@ -46,11 +46,11 @@ root.render(
     {/* <RouterApp/> */}
 
 
-    {/* <RecoilRoot>
+    <RecoilRoot>
     <BookApp/>
-    </RecoilRoot> */}
+    </RecoilRoot>
 
-    <Concluding/>
+    {/* <Concluding/> */}
   </React.StrictMode>
 );
 
