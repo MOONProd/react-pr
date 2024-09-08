@@ -11,33 +11,50 @@ function Concluding(props) {
         setWord(event.target.value);
     }
 
-    const checkWord = () => {
-        
-        if (chat.length===0)
-        {
-            setChat([...chat, word]);
-            setWord('');
+    const checkDictionary = async (word) => {
+        try {
+            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+            if (response.ok) {
+                const data = await response.json();
+                return data.length > 0; // 단어가 존재하면 true 반환
+            } else {
+                return false; // 단어가 존재하지 않으면 false 반환
+            }
+        } catch (error) {
+            console.error('Error checking the dictionary:', error);
+            return false; // 오류가 발생하면 단어가 존재하지 않는 것으로 간주
         }
+    }
 
-        else
-        {
+    const checkWord = async () => {
+        if (chat.length === 0) {
+            const wordExists = await checkDictionary(word);
+            if (wordExists) {
+                setChat([...chat, word]);
+                setWord('');
+            } else {
+                alert('단어가 존재하지 않습니다!');
+            }
+        } else {
             const prevWord = chat[chat.length - 1];
             const lastChar = prevWord[prevWord.length - 1]; // 이전 단어의 마지막 글자 추출
 
-            if (lastChar === word[0] && !(chat.includes(word)) ) { // 이전 단어의 마지막 글자와 새로운 단어의 첫 글자 비교
-                // console.log(chat.includes(word));
-                setChat([...chat, word]);
-                setWord('');
-            }
-            else
-            {
+            if (lastChar === word[0] && !chat.includes(word)) {
+                const wordExists = await checkDictionary(word);
+                if (wordExists) {
+                    setChat([...chat, word]);
+                    setWord('');
+                } else {
+                    alert('단어가 존재하지 않습니다!');
+                }
+            } else {
                 alert('졌슈');
             }
         }
-
     }
+
     const handleKeyDown = (event) => {
-        if(event.key === "Enter" && !isComposing) {
+        if (event.key === "Enter" && !isComposing) {
             checkWord();
         }
     }
