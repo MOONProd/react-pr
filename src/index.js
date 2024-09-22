@@ -5,6 +5,8 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import BookApp from './CLASS/BookApp';
 import Concluding from './jsx_file/Concluding';
+import ImageTest from './jsx_file/ImageTest';
+import ChatUITest from './jsx_file/ChatUITest';
 // import RouterApp from './Router/RouterApp';
 // import ClassGBB from './jsx_file/ClassGBB';
 // import ClassCalc from './jsx_file/ClassCalc';
@@ -50,7 +52,9 @@ root.render(
     <BookApp/>
     </RecoilRoot> */}
 
-    <Concluding/>
+    {/* <Concluding/> */}
+    {/* <ImageTest/> */}
+    <ChatUITest/>
   </React.StrictMode>
 );
 
