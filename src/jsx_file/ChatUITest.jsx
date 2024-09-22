@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
@@ -8,22 +8,24 @@ function ChatUITest(props) {
     const [isComposing, setIsComposing] = useState(false);
     const [timeProgress, setTimeProgress] = useState(0);
     const [isTimerActive, setIsTimerActive] = useState(false);
+    const timerRef = useRef(null); // useRef로 타이머 참조 변수 생성
 
     useEffect(() => {
         if (isTimerActive) {
-            const interval = setInterval(() => {
+            timerRef.current = setInterval(() => {
                 setTimeProgress((prev) => {
                     if (prev < 100) {
                         return prev + 2; // 5초 동안 0에서 100까지 증가
                     } else {
-                        clearInterval(interval);
+                        clearInterval(timerRef.current);
                         alert('시간 종료!');
+                        setIsTimerActive(false);
                         return 0;
                     }
                 });
             }, 100); // 0.1초마다 업데이트 (5초 동안 100번 업데이트)
 
-            return () => clearInterval(interval);
+            return () => clearInterval(timerRef.current);
         }
     }, [isTimerActive]);
 
@@ -43,7 +45,9 @@ function ChatUITest(props) {
                 setWord('');
             } else {
                 alert('끝!');
-                resetTimer();
+                clearInterval(timerRef.current); // 타이머 중지
+                setIsTimerActive(false); // 타이머 상태 비활성화
+                return; // 함수 종료
             }
         }
         resetTimer(); // 단어 제출 시 타이머 초기화
@@ -70,7 +74,7 @@ function ChatUITest(props) {
     };
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-blue-50">
             <h2 className="text-center text-xl font-bold mt-4">끝말잇기 시작 !!</h2>
 
             <div className="flex-grow p-5 overflow-y-auto w-1/2 mx-auto">
@@ -89,14 +93,16 @@ function ChatUITest(props) {
             </div>
 
             {/* 타임바 영역 */}
-            <div className="w-full bg-gray-300 h-1 relative">
-                <div 
-                    className="bg-blue-500 h-1 absolute left-0 top-0 transition-all duration-100" 
-                    style={{ width: `${timeProgress}%` }}
-                />
-            </div>
+            {isTimerActive && (            
+                <div className="w-full bg-gray-300 h-1 relative">
+                    <div 
+                        className="bg-blue-500 h-1 absolute left-0 top-0 transition-all duration-100" 
+                        style={{ width: `${timeProgress}%` }}
+                    />
+                </div>
+            )}
 
-            <div className="flex justify-center p-4 border-t border-gray-300">
+            <div className="flex justify-center p-4">
                 <TextField 
                     id="outlined-basic" 
                     label="단어를 입력하세요" 
