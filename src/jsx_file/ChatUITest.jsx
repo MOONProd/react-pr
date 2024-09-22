@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
@@ -6,6 +6,26 @@ function ChatUITest(props) {
     const [word, setWord] = useState('');
     const [chat, setChat] = useState([]);
     const [isComposing, setIsComposing] = useState(false);
+    const [timeProgress, setTimeProgress] = useState(0);
+    const [isTimerActive, setIsTimerActive] = useState(false);
+
+    useEffect(() => {
+        if (isTimerActive) {
+            const interval = setInterval(() => {
+                setTimeProgress((prev) => {
+                    if (prev < 100) {
+                        return prev + 2; // 5초 동안 0에서 100까지 증가
+                    } else {
+                        clearInterval(interval);
+                        alert('시간 종료!');
+                        return 0;
+                    }
+                });
+            }, 100); // 0.1초마다 업데이트 (5초 동안 100번 업데이트)
+
+            return () => clearInterval(interval);
+        }
+    }, [isTimerActive]);
 
     const handleChange = (event) => {
         setWord(event.target.value);
@@ -23,8 +43,10 @@ function ChatUITest(props) {
                 setWord('');
             } else {
                 alert('끝!');
+                resetTimer();
             }
         }
+        resetTimer(); // 단어 제출 시 타이머 초기화
     }
 
     const handleKeyDown = (event) => {
@@ -40,6 +62,11 @@ function ChatUITest(props) {
     const handleCompositionEnd = (event) => {
         setIsComposing(false); // 한글 조합 종료
         handleChange(event); // 최종 한글 값 업데이트
+    };
+
+    const resetTimer = () => {
+        setTimeProgress(0);
+        setIsTimerActive(true); // 타이머 시작
     };
 
     return (
@@ -59,6 +86,14 @@ function ChatUITest(props) {
                         </li>
                     ))}
                 </ul>
+            </div>
+
+            {/* 타임바 영역 */}
+            <div className="w-full bg-gray-300 h-1 relative">
+                <div 
+                    className="bg-blue-500 h-1 absolute left-0 top-0 transition-all duration-100" 
+                    style={{ width: `${timeProgress}%` }}
+                />
             </div>
 
             <div className="flex justify-center p-4 border-t border-gray-300">
